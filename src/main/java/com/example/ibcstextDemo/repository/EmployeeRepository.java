@@ -10,4 +10,6 @@ import java.math.BigInteger;
 
 @Repository
 public interface EmployeeRepository extends JpaRepository<Employee,BigInteger> {
+
+    void deleteById(BigInteger id);
 }

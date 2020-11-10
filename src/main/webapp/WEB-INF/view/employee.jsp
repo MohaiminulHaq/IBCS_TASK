@@ -25,6 +25,29 @@
 </head>
 
 <body>
+<nav class="navbar navbar-expand-lg navbar-dark bg-dark">
+    <a class="navbar-brand" href="#"></a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarText" aria-controls="navbarText" aria-expanded="false" aria-label="Toggle navigation">
+        <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse" id="navbarText">
+        <ul class="navbar-nav mr-auto">
+            <li class="nav-item active">
+                <a class="nav-link" href="/home">Home <span class="sr-only">(current)</span></a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="/employeeview">Employee Info.</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="#"></a>
+            </li>
+        </ul>
+        <span class="navbar-text">
+
+    </span>
+    </div>
+</nav>
+
 <div class="site-section">
     <div class="container">
         <div class="row">
@@ -44,19 +67,19 @@
 
                                     <div class="col-md-12 ">
 
-                                        <label class="col-form-label">Input name</label>
+                                        <label class="col-form-label">Name:</label>
                                         <input type="text" class="form-control" placeholder="Enter name" id="name"
                                                name="name" required="required">
 
-                                        <label class="col-form-label">address</label>
+                                        <label class="col-form-label">Address:</label>
                                         <input type="text" class="form-control" placeholder="Enter address" id="address"
                                                name="address" required="required">
 
-                                        <label class="col-form-label">mobile</label>
+                                        <label class="col-form-label">Mobile:</label>
                                         <input type="text" class="form-control" placeholder="Enter mobile" id="mobile"
                                                name="mobile" required="required">
 
-                                        <label class="col-form-label">bankAccount</label>
+                                        <label class="col-form-label">BankAccount:</label>
                                         <input type="text" class="form-control" placeholder="Enter bankAccount"
                                                id="bankAccount" name="bankAccount" required="required">
 
@@ -79,16 +102,8 @@
 
                                         <label class="col-form-label">Salary</label>
                                         <input type="text" class="form-control" placeholder="Enter basicSalary"
-                                               id="basicSalaryd" name="basicSalary" required="required" value="${grade.basicSalary}">
+                                               id="basicSalary" name="basicSalary" required="required">
 
-
-
-                                        <label class="col-form-label">Salary</label>
-                                        <select name="basicSalary" id="basicSalary">
-                                            <c:forEach items="${salaryCalculateList}" var="grade">
-                                                <option value="${grade.basicSalary}">${grade.basicSalary}</option>
-                                            </c:forEach>>
-                                        </select
                                         <br><br>
                                         <div class="submit">
                                             <input type="submit" class="form-control">
@@ -128,7 +143,14 @@
             type : "get",
             contentType : "application/json",
             success : function(data) {
-                console.log(data);
+
+                $.each(data,  function (index, element) {
+
+                    $("#basicSalary").val(element.basicSalary)
+
+
+                });
+
 
             },
             error : function(e) {

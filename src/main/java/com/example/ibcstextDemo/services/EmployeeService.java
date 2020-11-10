@@ -5,7 +5,7 @@ import com.example.ibcstextDemo.domain.Employee;
 import com.example.ibcstextDemo.domain.Grade;
 import com.example.ibcstextDemo.domain.SalaryCalculate;
 import com.example.ibcstextDemo.dto.EmployeeDto;
-import com.example.ibcstextDemo.dto.SalaryDtoxx;
+
 import com.example.ibcstextDemo.repository.EmployeeRepository;
 import com.example.ibcstextDemo.repository.GradeRepository;
 import com.example.ibcstextDemo.repository.SalaryCalculateRepository;
@@ -33,6 +33,8 @@ public class EmployeeService {
         employee.setAddress(employeeDto.getAddress());
         employee.setMobile(employeeDto.getMobile());
         employee.setBankAccount(employeeDto.getBankAccount());
+        employee.setBasicSalary(employeeDto.getBasicSalary());
+
 
         List<Grade> gradeList = gradeRepository.findAllByGradeName(employeeDto.getGradeName());
         for (Grade grade : gradeList) {
@@ -53,23 +55,62 @@ public class EmployeeService {
         return students;
     }
 
-    public List<SalaryDtoxx> getSalaryByGradeId(String gradeId){
+    public List<SalaryCalculate> getSalaryByGradeId(String gradeId){
 
         List<Grade> gradeList = gradeRepository.findAllByGradeName(gradeId);
 
-        List<SalaryDtoxx> salaryCalculateList = new ArrayList<>();
+        List<SalaryCalculate> salaryCalculateList = new ArrayList<>();
         for (Grade grade : gradeList){
 
             Optional<SalaryCalculate> salaryCalculateOptional = salaryCalculateRepository.findAllByGradeId(grade.getId());
 
             SalaryCalculate salaryCalculate = salaryCalculateOptional.get();
-            salaryCalculateList.add(new SalaryDtoxx(salaryCalculate.getBasicSalary()));
+            salaryCalculateList.add(salaryCalculate);
         }
 
 
         return salaryCalculateList;
 
     }
+
+//show
+    public List<Employee> showmyemployee() {
+        List<Employee> students = new ArrayList<Employee>();
+        for (Employee student : employeeRepository.findAll()) {
+            students.add(student);
+        }
+        return students;
+    }
+
+
+//update
+    public Employee updateProduct(Employee employee){
+        Employee abc=employeeRepository.findById(employee.getId()).orElse(null);
+
+        abc.setName(employee.getName());
+        abc.setAddress(employee.getAddress());
+        abc.setMobile(employee.getMobile());
+        abc.setBankAccount(employee.getBankAccount());
+
+
+
+        return employeeRepository.save(abc);
+    }
+
+
+    public Employee editProduct(BigInteger id) {
+        Optional<Employee> productOptional = employeeRepository.findById(id);
+        System.out.print("product list"+productOptional.get());
+        return productOptional.get();
+
+
+    }
+
+    public void deleteProduct(BigInteger id) {
+
+        employeeRepository.deleteById(id);
+    }
+
 
 
 }
