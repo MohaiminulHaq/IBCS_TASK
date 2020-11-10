@@ -1,0 +1,146 @@
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
+<%@ page contentType="text/html;charset=UTF-8" language="java" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <title>Ibcs-primax</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <link href="https://fonts.googleapis.com/css?family=Rubik:400,700|Crimson+Text:400,400i" rel="stylesheet">
+
+    <link href="<c:url value="/resources/contact/fonts/icomoon/style.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/bootstrap.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/magnific-popup.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/jquery-ui.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/owl.carousel.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/owl.theme.default.min.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/aos.css" />" rel="stylesheet">
+    <link href="<c:url value="/resources/contact/css/style.css" />" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+
+
+</head>
+
+<body>
+<div class="site-section">
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h5 class="card-title">Employee Information:</h5>
+            </div>
+
+            <div class="col-md-12">
+                <div class="card">
+
+                    <div class="card-body">
+
+                        <form class="form-detail" action="addEmployee" method="post" id="form">
+                            <div class="contact">
+
+                                <div class="row">
+
+                                    <div class="col-md-12 ">
+
+                                        <label class="col-form-label">Input name</label>
+                                        <input type="text" class="form-control" placeholder="Enter name" id="name"
+                                               name="name" required="required">
+
+                                        <label class="col-form-label">address</label>
+                                        <input type="text" class="form-control" placeholder="Enter address" id="address"
+                                               name="address" required="required">
+
+                                        <label class="col-form-label">mobile</label>
+                                        <input type="text" class="form-control" placeholder="Enter mobile" id="mobile"
+                                               name="mobile" required="required">
+
+                                        <label class="col-form-label">bankAccount</label>
+                                        <input type="text" class="form-control" placeholder="Enter bankAccount"
+                                               id="bankAccount" name="bankAccount" required="required">
+
+
+                                        <label class="col-form-label">Grade</label>
+
+
+                                        <select name="gradeName" id="gradeName" onchange="salaryForGrade()">
+                                            <c:forEach items="${gradeList}" var="grade">
+                                                <option value="${grade.gradeName}">${grade.gradeName}</option>
+                                            </c:forEach>
+                                        </select
+
+
+
+                                        <br><br>
+
+
+
+
+                                        <label class="col-form-label">Salary</label>
+                                        <input type="text" class="form-control" placeholder="Enter basicSalary"
+                                               id="basicSalaryd" name="basicSalary" required="required" value="${grade.basicSalary}">
+
+
+
+                                        <label class="col-form-label">Salary</label>
+                                        <select name="basicSalary" id="basicSalary">
+                                            <c:forEach items="${salaryCalculateList}" var="grade">
+                                                <option value="${grade.basicSalary}">${grade.basicSalary}</option>
+                                            </c:forEach>>
+                                        </select
+                                        <br><br>
+                                        <div class="submit">
+                                            <input type="submit" class="form-control">
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
+                            <br>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+
+    </div>
+</div>
+</div>
+
+
+<script src="<c:url value="/resources/contact/js/jquery-3.3.1.min.js" />"></script>
+<script src="<c:url value="/resources/contact/js/jquery-ui.js" />"></script>
+<script src="<c:url value="/resources/contact/js/popper.min.js" />"></script>
+<script src="<c:url value="/resources/contact/js/bootstrap.min.js" />"></script>
+<script src="<c:url value="/resources/contact/js/owl.carousel.min.js" />"></script>
+<script src="<c:url value="/resources/contact/js/jquery.magnific-popup.min.js" />"></script>
+<script src="<c:url value="/resources/contact/js/aos.js" />"></script>
+<script src="<c:url value="/resources/contact/js/main.js" />"></script>
+
+<script>
+
+    function salaryForGrade() {
+        var x = document.getElementById('gradeName').value;
+        alert(x);
+
+        $.ajax({
+            url :"/getSalary/"+x,
+            type : "get",
+            contentType : "application/json",
+            success : function(data) {
+                console.log(data);
+
+            },
+            error : function(e) {
+                 alert("Submit failed" + JSON.stringify(e));
+            }
+        });
+
+
+    }
+</script>
+
+
+</body>
+
+</html>
